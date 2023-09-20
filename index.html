@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Appointement system</title>
+    <link rel="stylesheet" href="./css/style.css" media="all">
+</head>
+
+<body>
+    <nav class="nav pl-2">
+        <div class="logo">
+            <img style="width: 30px;" src="https://img.icons8.com/?size=256&id=rX28Hj1fGQoh&format=png" alt="">
+        </div>
+        <a class="hamburger" href="#">
+            <span class="bar bar1 bg-dark"></span>
+            <span class="bar bar2 bg-dark"></span>
+            <span class="bar bar3 bg-dark"></span>
+        </a>
+        <div class="nav-links">
+            <ul>
+                <li><a href="#">home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <center>
+        <br>
+        <br>
+
+        <div class="container">
+            <form action="/book" method="post">
+                <label for="name">name</label> <br>
+                <br>
+                <input type="text" name="name" placeholder="name"> <br>
+                <br>
+                <label for="email">email</label> <br>
+                <br>
+                <input type="email" name="email" placeholder="email"><br>
+                <br>
+                <label for="phone">phone</label><br>
+                <br>
+                <input type="tel" name="phone" placeholder="phone"><br>
+                <br>
+                <label for="service"></label><br>
+                <br>
+                <select name="service">
+                    <option value="consultation">consultation</option><br>
+                    <option value="detartrage">detartrage</option>
+                </select><br>
+                <br>
+                <label for="date">date</label><br>
+                <br>
+                <input type="date" name="date">
+                <br>
+                <label for="time">time</label><br>
+                <br>
+                <!-- <input id="time" type="time" min="09:00" max="16:00" pattern="[0-2][0-9]:[0-5][0-9]" required name="time" -->
+                <!--     value=""> -->
+                <select class="timeSlots" name="time"></select><br>
+                <br>
+                <button class="btn btn-dark" type="submit">send</button><br>
+
+                <br>
+            </form>
+        </div>
+    </center>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger')
+        const navLinks = document.querySelector('.nav-links')
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active')
+        })
+
+        // Get the current date and time
+        const currentDate = new Date();
+        const currentTime = currentDate.toLocaleTimeString();
+
+        // Define the time slots
+        const timeSlots = [
+            {startTime: "09:00", endTime: "10:00"},
+            {startTime: "10:00", endTime: "11:00"},
+            {startTime: "11:00", endTime: "12:00"},
+            {startTime: "12:00", endTime: "13:00"},
+            {startTime: "13:00", endTime: "14:00"},
+            {startTime: "14:00", endTime: "15:00"},
+            {startTime: "15:00", endTime: "16:00"},
+            // {startTime: "15:45", endTime: "16:25"},
+        ];
+
+        // Loop through the time slots and add them to the list
+        timeSlots.forEach((timeSlot) => {
+            const startTime = timeSlot.startTime;
+            const endTime = timeSlot.endTime;
+            const timeSlotElement = document.createElement("option");
+            timeSlotElement.textContent = `${startTime} - ${endTime}`;
+            timeSlotElement.setAttribute("value", timeSlot.startTime)
+            document.querySelector("select.timeSlots").appendChild(timeSlotElement);
+        });
+    </script>
+
+
+</body>
+
+</html>

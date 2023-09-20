@@ -1,0 +1,32 @@
+{
+  "timeslots": [
+    {
+      "startTime": "T09:00:00Z",
+      "endTime": "T10:00:00Z"
+    },
+    {
+      "startTime": "T10:00:00Z",
+      "endTime": "T11:00:00Z"
+    },
+    {
+      "startTime": "T11:00:00Z",
+      "endTime": "T12:00:00Z"
+    },
+    {
+      "startTime": "T12:00:00Z",
+      "endTime": "T13:00:00Z"
+    },
+    {
+      "startTime": "T13:00:00Z",
+      "endTime": "T14:00:00Z"
+    },
+    {
+      "startTime": "T14:00:00Z",
+      "endTime": "T15:00:00Z"
+    },
+    {
+      "startTime": "T15:00:00Z",
+      "endTime": "T16:00:00Z"
+    }
+  ]
+}
