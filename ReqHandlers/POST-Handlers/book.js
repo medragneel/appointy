@@ -70,19 +70,9 @@ function bookAppointment(auth, year, month, day, hour, minute, name, desc, email
                     const createdEvent = res.data;
                     console.log('Appointment created: ', createdEvent.id);
 
-                    const appointmentDetailsTemplate = `
-    <p>Name: ${DOMPurify.sanitize(name)}</p>
-    <p>Email: ${DOMPurify.sanitize(email)}</p>
-    <p>Date: ${DOMPurify.sanitize(date)}</p>
-    <p>Start Time: ${DOMPurify.sanitize(createdEvent.start.dateTime)}</p>
-    <p>End Time: ${DOMPurify.sanitize(createdEvent.end.dateTime)}</p>
-`;
-
-                    const html = appointmentDetailsTemplate;
-
-
+                    const result = { startTime: createdEvent.start.dateTime, endTime: createdEvent.end.dateTime };
                     // Return the HTML response
-                    return resolve({ success: true, html: html });
+                    return resolve({ success: true, message: result });
                 });
             }
         });

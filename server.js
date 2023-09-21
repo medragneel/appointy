@@ -6,6 +6,7 @@ const timeslots = require('./ReqHandlers/GET-Handlers/timeslots.js');
 const book = require('./ReqHandlers/POST-Handlers/book.js');
 const event = require('./ReqHandlers/GET-Handlers/event.js');
 const helmet = require('helmet'); // Import the Helmet middleware
+const path = require("path")
 
 
 
@@ -40,7 +41,7 @@ function setAuth(auth) {
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(helmet());
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname,"public")));
 
 
 /**
@@ -145,7 +146,7 @@ function handleBookAppointment(req, res) {
         <h1 class="txt-success">Success</h1>
         <br />
 
-          ${data.html}
+        you have Appointment att   ${data.message.startTime}
 </div>
         </div>
         </center>
