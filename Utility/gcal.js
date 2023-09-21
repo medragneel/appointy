@@ -18,6 +18,9 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+require('dotenv').config();
+
+console.log(process.env.GOOGLE_CLIENT_ID);
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/calendar'];
@@ -29,17 +32,8 @@ const CREDENTIALS_PATH = './Utility/credentials.json';
 
 // Load client secrets from a local file.
 function initAuthorize(callback) {
-    fs.readFile(CREDENTIALS_PATH, (err, content) => {
-        if (err) {
-            console.log('The credentials.json file could not be found or was invalid. \n' +
-                'Please visit: https://developers.google.com/calendar/quickstart/nodejs \n' +
-                'and generate a credentials.json file from that site. Then, place your \n' +
-                'credentials file into the "Utility" directory of this application.');
-            process.exit(1);
-        }
         // Authorize a client with credentials, then call the Google Calendar API.
-        authorize(JSON.parse(content), callback);
-    });
+        authorize(JSON.parse(process.env.GOOGLE_CLIENT_CRED), callback);
 }
 
 /**
