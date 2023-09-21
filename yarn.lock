@@ -30,6 +30,11 @@ anymatch@~3.1.2:
     normalize-path "^3.0.0"
     picomatch "^2.0.4"
 
+appointment-picker@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/appointment-picker/-/appointment-picker-2.0.0.tgz#aa50411982ae52bd93504565bf152d3472740a0d"
+  integrity sha512-xBMbgLDgDpP4ZBIWiKlr1xodkVP//k+xGKkBO2WPSbkf3XKCgQ5tVK2HihXClzUCLHVk3b9VI5CBgmI+idr9lg==
+
 array-flatten@1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/array-flatten/-/array-flatten-1.1.1.tgz"
