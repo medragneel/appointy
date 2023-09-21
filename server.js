@@ -172,7 +172,7 @@ function handleBookAppointment(req, res) {
         })
         .catch(function(data) {
             console.log(data)
-            res.send(htmlWrappehtmlWrapper(`
+            res.send(htmlWrapper(`
       <br />
       <br />
       <br />
