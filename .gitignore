@@ -2,3 +2,4 @@
 /node_modules/
 /Utility/credentials.json
 /Utility/token.json
+.env
