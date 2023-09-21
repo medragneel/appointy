@@ -5,6 +5,10 @@ const days = require('./ReqHandlers/GET-Handlers/days.js');
 const timeslots = require('./ReqHandlers/GET-Handlers/timeslots.js');
 const book = require('./ReqHandlers/POST-Handlers/book.js');
 const event = require('./ReqHandlers/GET-Handlers/event.js');
+const helmet = require('helmet'); // Import the Helmet middleware
+
+
+
 function htmlWrapper(data) {
     return `
     <!DOCTYPE html>
@@ -35,7 +39,10 @@ function setAuth(auth) {
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(helmet());
 app.use(express.static(__dirname));
+
+
 /**
  * Handles 'days' GET requests.
  * @param {object} req  The requests object provided by Express. See Express doc.
@@ -93,38 +100,38 @@ function handleGetEvents(req, res) {
  * @param {object} res  The results object provided by Express. See Express doc.
  */
 function handleBookAppointment(req, res) {
-    const date = req.body.date.split("-");
-    console.log(req.body.date)
-    const year = parseInt(date[0]);
-    const month = parseInt(date[1]);
-    const day = parseInt(date[2]);
+    const data = req.body
+    if (data.date && data.time && typeof data.date == 'string' && typeof data.time == 'string') {
 
-    // const year = req.query.year;
-    // const month = req.query.month;
-    // const day = req.query.day;
-    // const hour = req.query.hour;
-    // const minute = req.query.minute;
-    //
-    const time = req.body.time.split(":");
-    const hour = time[0];
-    const minute = time[1];
+        const date = req.body.date.split("-");
+        console.log(req.body.date)
+        const year = parseInt(date[0]);
+        const month = parseInt(date[1]);
+        const day = parseInt(date[2]);
 
-    console.log(minute)
+        // const year = req.query.year;
+        // const month = req.query.month;
+        // const day = req.query.day;
+        // const hour = req.query.hour;
+        // const minute = req.query.minute;
+        //
+        const time = req.body.time.split(":");
+        const hour = time[0];
+        const minute = time[1];
 
-    const name = req.body.name;
-    const service = req.body.service;
-    const email = req.body.email;
-    const phone = req.body.phone
-    const desc = `nom: ${name}. \n email: ${email} \n phone: ${phone} \n service: ${service} \n a ${req.body.date} T ${req.body.time}`
+        const name = req.body.name;
+        const service = req.body.service;
+        const email = req.body.email;
+        const phone = req.body.phone
+        const desc = `nom: ${name}. \n email: ${email} \n phone: ${phone} \n service: ${service} \n a ${req.body.date} T ${req.body.time}`
 
 
 
 
-    book.bookAppointment(this.auth, year, month, day, hour, minute, name, desc, email)
-        .then(function(data) {
-            console.log(data)
-            if (data.success === true) {
-                res.send(htmlWrapper(`
+        book.bookAppointment(this.auth, year, month, day, hour, minute, name, desc, email)
+            .then(function(data) {
+                if (data.success === true) {
+                    res.send(htmlWrapper(`
       <br />
       <br />
       <br />
@@ -144,8 +151,8 @@ function handleBookAppointment(req, res) {
         </center>
   `));
 
-            } else {
-                res.send(htmlWrapper(`
+                } else {
+                    res.send(htmlWrapper(`
       <br />
       <br />
       <br />
@@ -166,13 +173,12 @@ function handleBookAppointment(req, res) {
   `));
 
 
-            }
+                }
 
-            // res.send(data);
-        })
-        .catch(function(data) {
-            console.log(data)
-            res.send(htmlWrapper(`
+                // res.send(data);
+            })
+            .catch(function(data) {
+                res.send(htmlWrapper(`
       <br />
       <br />
       <br />
@@ -186,7 +192,8 @@ function handleBookAppointment(req, res) {
       </center>
         </div>
   `));
-        });
+            });
+    }
 }
 
 // Routes.

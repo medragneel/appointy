@@ -2,7 +2,6 @@ const fs = require('fs');
 const { google } = require('googleapis');
 const reqValidator = require('../../Utility/requirement-validator.js');
 const appUtil = require('../../Utility/appUtil.js');
-const Mustache = require("mustache")
 
 const TIMESLOTS_PATH = './Utility/timeslots.json';
 /**
@@ -70,7 +69,7 @@ function bookAppointment(auth, year, month, day, hour, minute, name, desc, email
                     const createdEvent = res.data;
                     console.log('Appointment created: ', createdEvent.id);
 
-                    const appointmentDetailsTemplate = `
+                    const html = `
                     <p>Name: ${name}</p>
                     <p>Email: ${email}</p>
                     <p>Date: ${date}</p>
@@ -78,13 +77,6 @@ function bookAppointment(auth, year, month, day, hour, minute, name, desc, email
                     <p>End Time: ${createdEvent.end.dateTime}</p>
                 `;
 
-                    const html = Mustache.render(appointmentDetailsTemplate, {
-                        name: name,
-                        date: date,
-                        startTime: createdEvent.start.dateTime,
-                        endTime: createdEvent.end.dateTime,
-                        email: email
-                    });
 
                     // Return the HTML response
                     return resolve({ success: true, html: html });
