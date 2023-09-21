@@ -3,6 +3,7 @@ const { google } = require('googleapis');
 const reqValidator = require('../../Utility/requirement-validator.js');
 const appUtil = require('../../Utility/appUtil.js');
 
+const DOMPurify = require('dompurify');
 const TIMESLOTS_PATH = './Utility/timeslots.json';
 /**
  * Searches using the provided date for a timeslot matching the hour and minute specified.
@@ -69,13 +70,15 @@ function bookAppointment(auth, year, month, day, hour, minute, name, desc, email
                     const createdEvent = res.data;
                     console.log('Appointment created: ', createdEvent.id);
 
-                    const html = `
-                    <p>Name: ${name}</p>
-                    <p>Email: ${email}</p>
-                    <p>Date: ${date}</p>
-                    <p>Start Time: ${createdEvent.start.dateTime}</p>
-                    <p>End Time: ${createdEvent.end.dateTime}</p>
-                `;
+                    const appointmentDetailsTemplate = `
+    <p>Name: ${DOMPurify.sanitize(name)}</p>
+    <p>Email: ${DOMPurify.sanitize(email)}</p>
+    <p>Date: ${DOMPurify.sanitize(date)}</p>
+    <p>Start Time: ${DOMPurify.sanitize(createdEvent.start.dateTime)}</p>
+    <p>End Time: ${DOMPurify.sanitize(createdEvent.end.dateTime)}</p>
+`;
+
+                    const html = appointmentDetailsTemplate;
 
 
                     // Return the HTML response
