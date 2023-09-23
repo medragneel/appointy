@@ -15,6 +15,8 @@ function htmlWrapper(data) {
     <!DOCTYPE html>
     <html>
       <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <title>Book Appointment</title>
     <link rel="stylesheet" href="./css/style.css" media="all">
       </head>
@@ -40,8 +42,11 @@ function setAuth(auth) {
 
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(helmet());
-app.use(express.static(path.join(__dirname,"public")));
+app.use(helmet({
+    contentSecurityPolicy: false,
+}));
+app.use(express.static(path.join(__dirname, "public")));
+
 
 
 /**
@@ -122,7 +127,7 @@ function handleBookAppointment(req, res) {
 
         const name = req.body.name;
         const service = req.body.service;
-        const email = req.body.email;
+        const email = req.body.email || "empty@err.me";
         const phone = req.body.phone
         const desc = `nom: ${name}. \n email: ${email} \n phone: ${phone} \n service: ${service} \n a ${req.body.date} T ${req.body.time}`
 

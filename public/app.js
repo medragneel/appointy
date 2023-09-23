@@ -5,9 +5,9 @@ hamburger.addEventListener('click', () => {
     navLinks.classList.toggle('active')
 })
 
-// Get the current date and time
-const currentDate = new Date();
-const currentTime = currentDate.toLocaleTimeString();
+// // Get the current date and time
+// const currentDate = new Date();
+// const currentTime = currentDate.toLocaleTimeString();
 
 // Define the time slots
 const timeSlots = [

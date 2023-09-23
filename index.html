@@ -3,9 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>Appointement system</title>
     <link rel="stylesheet" href="/css/style.css" media="all">
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body>
@@ -21,56 +23,124 @@
         </a>
         <div class="nav-links">
             <ul>
-                <li><a href="#">home</a></li>
+                <li><a target="_blank" href="https://github.com/medragneel/" class="btn btn-dark-outline"><i
+                            class="fa-brands fa-github mr-1"></i>Github</a></li>
             </ul>
         </div>
     </nav>
 
     <center>
         <br>
-        <br>
 
-        <div class="container">
-            <form action="/book" method="post">
-                <label for="name">name</label> <br>
-                <br>
-                <input type="text" name="name" placeholder="name"> <br>
-                <br>
-                <label for="email">email</label> <br>
-                <br>
-                <input type="email" name="email" placeholder="email"><br>
-                <br>
-                <label for="phone">phone</label><br>
-                <br>
-                <input type="tel" name="phone" placeholder="phone"><br>
-                <br>
-                <label for="service"></label><br>
-                <br>
-                <select name="service">
-                    <option value="consultation">consultation</option><br>
-                    <option value="detartrage">detartrage</option>
-                </select><br>
-                <br>
-                <label for="date">date</label><br>
-                <br>
-                <input type="date" name="date">
-                <br>
-                <label for="time">time</label><br>
-                <br>
-                <!-- <input id="time" type="time" min="09:00" max="16:00" pattern="[0-2][0-9]:[0-5][0-9]" required name="time" -->
-                <!--     value=""> -->
-                <select class="timeSlots" name="time"></select><br>
-                <br>
-                <button class="btn btn-dark" type="submit">send</button><br>
+        <div class="container" x-data="{
+    name: '',
+    email: '',
+    phone: '',
+    service: '',
+    date: '',
+    time: '',
+    errors: {},
+    submitForm() {
+        this.errors = {};
 
+        // Basic validation, you can add more specific validation as needed
+        if (!this.name) {
+            this.errors.name = 'Nom est requis.';
+        }
+        if (this.email && !this.validateEmail(this.email)) {
+            this.errors.email = 'Email n\'est pas valide.';
+        }
+        if (!this.phone) {
+            this.errors.phone = 'Téléphone est requis.';
+        }
+        if (!this.service) {
+            this.errors.service = 'Service est requis.';
+        }
+        if (!this.date) {
+            this.errors.date = 'Date est requise.';
+        }
+        if (!this.time) {
+            this.errors.time = 'Heure est requise.';
+        }
+
+        // If there are no errors, you can submit the form
+        if (Object.keys(this.errors).length === 0) {
+            // Submit the form here, for example:
+            // document.querySelector('form').submit();
+            console.log('Form submitted successfully!');
+        }
+    },
+    validateEmail(email) {
+        // Add your email validation logic here
+        // You can use regular expressions or other methods to validate
+        return true; // For this example, assume all emails are valid
+    }
+}">
+            <form action="/book" method="post" @submit="submitForm">
+                <label for="name">Nom</label> <br><br>
+                <input type="text" name="name" placeholder="Entrez votre nom" required x-model="name">
                 <br>
+                <span x-text="errors.name" class="txt-danger"></span> <br><br>
+
+                <label for="email">Email</label> <br><br>
+                <input type="email" name="email" placeholder="Ajoutez votre email" x-model="email">
+                <br>
+                <span x-text="errors.email" class="txt-danger"></span> <br><br>
+
+                <label for="phone">Téléphone</label><br><br>
+                <input type="tel" name="phone" placeholder="Numéro de téléphone" x-model="phone">
+                <br>
+                <span x-text="errors.phone" class="txt-danger"></span> <br><br>
+
+
+                <label for="service">Service</label><br><br>
+                <select name="service" x-model="service">
+                    <option value="" disabled>Choisissez le service</option>
+                    <option value="consultation">Consultation</option>
+                    <option value="detartrage">Détartrage</option>
+                </select>
+                <br>
+                <span x-text="errors.service" class="txt-danger"></span> <br><br>
+
+                <label for="date">Date</label><br><br>
+                <input type="date" name="date" x-model="date">
+                <br>
+                <span x-text="errors.date" class="txt-danger"></span> <br><br>
+
+                <label for="time">Time</label><br><br>
+                <select x-data="{timeslots: [
+
+                { startTime: '09:00', endTime: '10:00' },
+                { startTime: '10:00', endTime: '11:00' },
+                { startTime: '11:00', endTime: '12:00' },
+                { startTime: '12:00', endTime: '13:00' },
+                { startTime: '13:00', endTime: '14:00' },
+                { startTime: '14:00', endTime: '15:00' },
+                { startTime: '15:00', endTime: '16:00' },
+
+
+                ]}" class="timeSlots" name="time" x-model="time">
+                    <option value="" disabled>choisit l'heure du rendez vous</option>
+                    <template x-for="timeslot in timeslots" :key="timeslot.startTime">
+                        <option x-text="timeslot.startTime"></option>
+                    </template>
+
+                </select>
+                <br>
+                <br>
+                <span x-text="errors.time" class="txt-danger"></span> <br><br>
+
+                <button class="btn btn-dark" type="submit">Envoyer</button><br><br>
             </form>
         </div>
+
     </center>
 
-    <script src="/app.js"></script>
+    <!-- <script src="/app.js"></script> -->
 
 
+    <!-- <script src="/app.js"></script> -->
+    <script src="https://kit.fontawesome.com/dffcb81fbc.js" crossorigin="anonymous"></script>
 </body>
 
-</html/>
+</html />
