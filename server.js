@@ -54,51 +54,51 @@ app.use(express.static(path.join(__dirname, "public")));
  * @param {object} req  The requests object provided by Express. See Express doc.
  * @param {object} res  The results object provided by Express. See Express doc.
  */
-function handleGetDays(req, res) {
-    const year = req.query.year;
-    const month = req.query.month;
-    days.getBookableDays(this.auth, year, month)
-        .then(function(data) {
-            res.send(data);
-        })
-        .catch(function(data) {
-            res.send(data);
-        });
-}
+// function handleGetDays(req, res) {
+//     const year = req.query.year;
+//     const month = req.query.month;
+//     days.getBookableDays(this.auth, year, month)
+//         .then(function(data) {
+//             res.send(data);
+//         })
+//         .catch(function(data) {
+//             res.send(data);
+//         });
+// }
 
 /**
  * Handles 'timeslots' GET requests.
  * @param {object} req  The requests object provided by Express. See Express doc.
  * @param {object} res  The results object provided by Express. See Express doc.
  */
-function handleGetTimeslots(req, res) {
-    const year = req.query.year;
-    const month = req.query.month;
-    const day = req.query.day;
+// function handleGetTimeslots(req, res) {
+//     const year = req.query.year;
+//     const month = req.query.month;
+//     const day = req.query.day;
+//
+//     timeslots.getAvailTimeslots(this.auth, year, month, day)
+//         .then(function(data) {
+//             res.send(data);
+//         })
+//         .catch(function(data) {
+//             res.send(data);
+//         });
+// }
 
-    timeslots.getAvailTimeslots(this.auth, year, month, day)
-        .then(function(data) {
-            res.send(data);
-        })
-        .catch(function(data) {
-            res.send(data);
-        });
-}
-
-function handleGetEvents(req, res) {
-    const year = req.query.year;
-    const month = req.query.month;
-    const day = req.query.day;
-
-    event.getCalendarEvents(this.auth, year, month, day)
-        .then(function(data) {
-            res.send(data);
-        })
-        .catch(function(data) {
-            res.send(data);
-        });
-}
-
+// function handleGetEvents(req, res) {
+//     const year = req.query.year;
+//     const month = req.query.month;
+//     const day = req.query.day;
+//
+//     event.getCalendarEvents(this.auth, year, month, day)
+//         .then(function(data) {
+//             res.send(data);
+//         })
+//         .catch(function(data) {
+//             res.send(data);
+//         });
+// }
+//
 
 /**
  * Handles 'book' POST requests.
@@ -203,12 +203,15 @@ function handleBookAppointment(req, res) {
 }
 
 // Routes.
-app.get('/days', handleGetDays);
-app.get('/timeslots', handleGetTimeslots);
-app.get('/events', handleGetEvents);
+// app.get('/days', handleGetDays);
+// app.get('/timeslots', handleGetTimeslots);
+// app.get('/events', handleGetEvents);
 app.post('/book', handleBookAppointment);
 app.get("/", (req, res) => {
     return res.sendFile("/index.html", { root: __dirname })
+})
+app.get("*", (req, res) => {
+    res.redirect("/")
 })
 
 
