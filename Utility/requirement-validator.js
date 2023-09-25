@@ -91,11 +91,11 @@ function validateBooking(year, month, day, hour, minute) {
     const missingInputs = checkMissingInputs(year, month, day, hour, minute);
     if (missingInputs) return missingInputs;
     if (isInPast(year, month, day, hour, minute))
-        return {success: false, message: 'Cannot book time in the past'};
+        return {success: false, message: 'Impossible de réserver dans le passé'};
     if (!isInBookableTimeframe(year, month, day, hour, minute))
-        return {success: false, message: 'Cannot book outside bookable timeframe'};
+        return {success: false, message: 'Impossible de réserver en dehors de la période de réservation autorisée'};
     if (!is24HoursInAdvance(year, month, day, hour, minute))
-        return {success: false, message: 'Cannot book with less than 24 hours in advance'};
+        return {success: false, message: "Impossible de réserver avec moins de 24 heures d'avance"};
 }
 
 /**
@@ -109,9 +109,9 @@ function validateGetTimeslots(year, month, day) {
     const missingInputs = checkMissingInputs(year, month, day, '0', '0');
     if (missingInputs) return missingInputs;
     if (isInPast(year, month, day, undefined, undefined))
-        return {success: false, message: 'No timeslots are available in the past'};
+        return {success: false, message: "Aucune plage horaire n'est disponible dans le passé"};
     if (!isInBookableTimeframe(year, month, day, undefined, undefined))
-        return {success: false, message: 'No timeslots exist outside bookable timeframe'};
+        return {success: false, message: "Aucune plage horaire n'existe en dehors de la période de réservation autorisée"};
 }
 
 /**
@@ -124,7 +124,7 @@ function validateGetDays(year, month) {
     const missingInputs = checkMissingInputs(year, month, '0', '0', '0');
     if (missingInputs) return missingInputs;
     if (isInPast(year, month, undefined, undefined, undefined))
-        return {success: false, message: 'No timeslots are available in the past'};
+        return {success: false, message: "Aucune plage horaire n'est disponible dans le passé"};
 }
 
 module.exports = {

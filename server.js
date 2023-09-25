@@ -151,7 +151,7 @@ function handleBookAppointment(req, res) {
         <h1 class="txt-success">Success</h1>
         <br />
 
-        you have Appointment att   ${data.message.startTime}
+         Vous avez rendez-vous à    ${data.message.startTime}
 </div>
         </div>
         </center>

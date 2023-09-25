@@ -58,7 +58,7 @@ function bookAppointment(auth, year, month, day, hour, minute, name, desc, email
 
             if (res.data.items.length > 0) {
                 // Event already exists for the day, you can handle this case as needed
-                return resolve({ success: false, message: 'An event already exists for this date' });
+                return resolve({ success: false, message: 'Un événement existe déjà pour cette date' });
             } else {
                 // Event doesn't exist, create it
                 calendar.events.insert({
